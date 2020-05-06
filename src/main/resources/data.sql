@@ -1,0 +1,73 @@
+--/* ユーザーマスタのデータ（ADMIN権限） */
+--INSERT INTO m_user (id, user_name, mail, password, gender_id, todofuken_id, age, role, enabled)
+--VALUES(1, 'pieroplus', 'pieroplus@hoge.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '0', '1', 28, 'ROLE_ADMIN', true);
+--
+----/* ユーザーマスタのデータ（一般権限） */
+--INSERT INTO m_user (id, user_name, mail, password, gender_id, todofuken_id, age, role, enabled)
+--VALUES(2, 'pipipichan', 'pipipi@hoge.co.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '1', '2', 24, 'ROLE_GENERAL', true);
+
+--INSERT INTO mid_user_hobby (id, user_id, hobby_id)
+--VALUES(1,1,1);
+--
+--INSERT INTO mid_user_hobby (id, user_id, hobby_id)
+--VALUES(2,1,3);
+--
+--INSERT INTO mid_user_hobby (id, user_id, hobby_id)
+--VALUES(3,2,4);
+
+--INSERT INTO m_gender (id, gender_name)
+--VALUES(1, '男性');
+--
+--INSERT INTO m_gender (id, gender_name)
+--VALUES(2, '女性');
+
+--INSERT INTO m_hobby (id, hobby_name)
+--VALUES(1, '料理');
+--
+--INSERT INTO m_hobby (id, hobby_name)
+--VALUES(2, '運動');
+--
+--INSERT INTO m_hobby (id, hobby_name)
+--VALUES(3, '読書');
+--
+--INSERT INTO m_hobby (id, hobby_name)
+--VALUES(4, '映画');
+--
+--INSERT INTO m_hobby (id, hobby_name)
+--VALUES(5, 'ドライブ');
+--
+--INSERT INTO m_hobby (id, hobby_name)
+--VALUES(6, '資格');
+--
+--INSERT INTO m_hobby (id, hobby_name)
+--VALUES(7, '音楽');
+--
+--INSERT INTO m_hobby (id, hobby_name)
+--VALUES(8, 'その他');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(1, '北海道');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(2, '東北');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(3, '北陸');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(4, '関東');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(5, '中部');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(6, '近畿');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(7, '中国');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(8, '四国');
+--
+--INSERT INTO m_todofuken (id, todofuken_name)
+--VALUES(9, '九州');

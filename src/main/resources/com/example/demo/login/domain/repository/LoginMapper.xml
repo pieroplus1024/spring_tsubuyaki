@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.login.domain.repository.LoginMapper">
+
+	<!-- マッピング定義 -->
+<!-- 	<resultMap type="com.example.demo.shared.domain.model.Users" id="user">
+		<id column="id" property="id" />
+		<result column="user_name" 		property="userName"/>
+		<result column="password" 		property="password" />
+		<result column="mail" 			property="mail"/>
+		<result column="gender_id" 		property="genderId" />
+		<result column="hobby_id" 		property="hobbyId" />
+		<result column="todofuken_id" 	property="todofukenId" />
+		<result column="age" 			property="age" />
+		<result column="role" 			property="role" />
+		<result column="enabled" 		property="enabled" />
+	</resultMap> -->
+
+	<!-- idの採番 -->
+	<select id="getNextId" parameterType="String" resultType="int">
+		SELECT max(id) + 1
+		  FROM ${tableName}
+	</select>
+
+	<!-- ユーザー名の重複チェック -->
+	<select id="chkNameDuplication" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM m_user
+		 WHERE user_name = #{name}
+	</select>
+
+	<!-- メールアドレスの重複チェック -->
+	<select id="chkMailDuplication" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM m_user
+		 WHERE mail = #{mail}
+	</select>
+
+	<!-- 新規のユーザ登録 -->
+	<insert id="insertUsers" parameterType="com.example.demo.shared.domain.model.Users">
+		INSERT INTO m_user(
+			id,
+			user_name,
+			mail,
+			password,
+			gender_id,
+			todofuken_id,
+			age,
+			role,
+			enabled
+		)VALUES(
+			#{nextId},
+			#{userName},
+			#{mail},
+			#{password},
+			#{genderId},
+			#{todofukenId},
+			#{age},
+			#{role},
+			#{enabled})
+	</insert>
+</mapper>

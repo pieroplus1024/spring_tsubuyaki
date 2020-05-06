@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>つぶやき</title>
+	<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+	<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+	<link th:href="@{/css/signup.css}" rel="stylesheet"></link>
+</head>
+<body>
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4">
+		<h1 id="title">新規登録</h1>
+		<p th:text="${errMessage}" class="text-danger"></p>
+		<form method="post" th:action="@{/signup}" th:object="${usersForm}">
+			<table  class="table table-bordered table-hober">
+				<tr>
+					<th class="active col-sm-4">メールアドレス</th>
+					<td>
+						<input type="text" th:field="*{mail}" placeholder="メールアドレス" size="30"/>
+						<span class="text-danger" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
+						<p th:text="${mailErrMsg}" class="text-danger"></p>
+					</td>
+				<tr>
+					<th class="active">ユーザー名</th>
+					<td>
+						<input type="text" th:field="*{userName}" placeholder="ユーザー名" name="username"/>
+						<span class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+						<p th:text="${userNameErrMsg}" class="text-danger"></p>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">パスワード</th>
+					<td>
+						<input type="text" th:field="*{password}" placeholder="パスワード" name="password"/>
+						<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">性別</th>
+					<td>
+						<div class="form-group">
+	 						<div th:each="item : ${radioGender}">
+								<input type="radio" name="radioGender"
+								th:text="${item.key}"
+								th:value="${item.value}"
+								th:field="*{genderId}">
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">趣味</th>
+					<td>
+						<div class="form-group">
+	 						<div th:each="item : ${checkHobby}">
+							<input type="checkbox" name="checkHobby"
+								th:text="${item.key}"
+								th:value="${item.value}"
+								th:field="*{hobbyIds}">
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">お住いの地域</th>
+					<td>
+	 					<select class="form-control" th:field="*{todofukenId}" size="1" style="width: 100px">
+  							<option th:each="item : ${selectTodofuken}" th:value="${item.value}" th:text="${item.key}" />
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">
+						年齢
+					</th>
+					<td>
+						<input type="text" th:field="*{age}" placeholder="20">
+					</td>
+				</tr>
+			</table>
+			<div class="col-sm-6 center">
+ 				<button class="btn btn-primary" type="submit">&nbsp;&nbsp;登録&nbsp;&nbsp;</button>
+			</div>
+			<div class="col-sm-6 center">
+				<a th:href="@{/login}" class="btn btn-primary">&nbsp;&nbsp;戻る&nbsp;&nbsp;</a>
+			</div>
+		</form>
+	</div>
+	<div class="col-sm-4"></div>
+
+</body>
+</html>

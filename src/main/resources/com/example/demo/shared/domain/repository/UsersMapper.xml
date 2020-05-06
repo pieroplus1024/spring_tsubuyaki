@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.shared.domain.repository.UsersMapper">
+
+	<!-- Usersマッピング定義 -->
+	<resultMap type="com.example.demo.shared.domain.model.Users" id="user">
+		<id column="id" property="id" />
+		<result column="user_name" 		property="userName"/>
+		<result column="password" 		property="password" />
+		<result column="mail" 			property="mail"/>
+		<result column="gender_id" 		property="genderId" />
+		<result column="gender_name"	property="genderName"/>
+		<result column="hobby_id" 		property="hobbyId" />
+		<result column="todofuken_id" 	property="todofukenId" />
+		<result column="todofuken_name"	property="todofukenName"/>
+		<result column="age" 			property="age" />
+		<result column="role" 			property="role" />
+		<result column="enabled" 		property="enabled" />
+	</resultMap>
+
+	<!-- ユーザーIDの取得 -->
+	<select id="getUserId" parameterType="String" resultType="int">
+		SELECT id
+		  FROM m_user
+		 WHERE user_name = #{userName}
+	</select>
+
+	<!-- ユーザー情報の取得 -->
+	<select id="getUserInfo" parameterType="int" resultMap="user">
+		SELECT u.id,
+			   u.user_name,
+			   u.mail,
+			   u.password,
+			   u.gender_id,
+			   g.gender_name,
+			   u.todofuken_id,
+			   t.todofuken_name,
+			   u.age,
+			   u.role,
+			   u.enabled
+		  FROM m_user u INNER JOIN m_gender g
+								ON (u.gender_id = g.id)
+						INNER JOIN M_TODOFUKEN  t
+								ON (u.todofuken_id = t.id)
+		 WHERE u.id = #{userId}
+	</select>
+
+
+	<!-- フォローidの取得 -->
+	<select id="getFollowIds" parameterType="int" resultType="int">
+		SELECT follow_user_id
+		  FROM follow
+		 WHERE user_id = #{userId}
+	</select>
+
+	<!-- フォロワーidの取得 -->
+	<select id="getFollowerIds" parameterType="int" resultType="int">
+		SELECT follower_user_id
+		  FROM follower
+		 WHERE user_id = #{userId}
+	</select>
+</mapper>

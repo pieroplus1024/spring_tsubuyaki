@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>つぶやき</title>
+	<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+	<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+	<link th:href="@{/css/home.css}" rel="stylesheet"></link>
+	<script>
+		function editMode(tsubuyakiId){
+			var id				= tsubuyakiId.replace('editBtn','');
+			var tsubuyaki		= 'tsubuyaki' + id;
+			var tsubuyakiEdit	= 'tsubuyakiEdit' + id;
+			var tsubuyakiText	= 'tsubuyakiText' + id;
+			var tsubuyakiInput	= 'tsubuyakiInput' + id;
+			document.getElementById(tsubuyaki).style.display="none";
+			document.getElementById(tsubuyakiEdit).style.display="block";
+			var text = document.getElementById(tsubuyakiText).innerHTML;
+			document.getElementById(tsubuyakiInput).value = text;
+		}
+		function normalMode(tsubuyakiId){
+			var id = tsubuyakiId.replace('canselBtn','');
+			var tsubuyaki = 'tsubuyaki' + id;
+			var tsubuyakiEdit = 'tsubuyakiEdit' + id;
+			document.getElementById(tsubuyaki).style.display="block";
+			document.getElementById(tsubuyakiEdit).style.display="none";
+		}
+	</script>
+</head>
+<body>
+	<!-- ヘッダー -->
+	<div th:insert="~{shared/sharedHeader :: header}"></div>
+	<!-- サイドバー -->
+	<div th:insert="~{shared/sharedSidebar :: sidebar}"></div>
+	<!--  メインコンテンツ -->
+	<div class="mainContents col-sm-8">
+		<div class="col-sm-12 inputTsubuyaki">
+   			<form class="navbar-form" method="post" th:action="@{/home}" th:object="${tsubuyakiForm}">
+   				<div class="form-group">
+   					<span class="text-danger" th:if="${#fields.hasErrors('tsubuyaki')}" th:errors="*{tsubuyaki}"></span><br>
+ 					<input type="text" class="form-control" th:field="*{tsubuyaki}" size="60" placeholder="何かつぶやく">
+					<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>&nbsp;つぶやく</button>
+ 				</div>
+ 			</form>
+		</div>
+		<div class="col-sm-12 tsubuyaki" th:each="tsubuyaki : ${tsubuyakiList}">
+			<div th:id="tsubuyaki + ${tsubuyaki.id}" >
+				<span class="userName"><a href="#" th:text="${tsubuyaki.userName}"></a></span>
+ 				<p th:text="${tsubuyaki.updateDate}" style="font-size=10"></p>
+				<p th:text="${tsubuyaki.tsubuyaki}" th:id="tsubuyakiText + ${tsubuyaki.id}"></p>
+				<div th:if="${tsubuyaki.userId} eq ${user.id}">
+					<div style="display:inline-flex">
+						<button class="btn-xs btn-success" th:id="editBtn + ${tsubuyaki.id}" onclick="editMode(this.id)"><span class="glyphicon glyphicon-pencil" aria-hidden="true">&nbsp;編集</span></button>&nbsp;
+						<form method="post" th:action="@{'/home/delete/' + ${tsubuyaki.id}}">
+							<button class="btn btn-xs btn-danger" type="submit"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;削除</span></button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div th:id="tsubuyakiEdit + ${tsubuyaki.id}" style="display:none">
+				<span class="userName"><a href="#" th:text="${tsubuyaki.userName}"></a></span>
+				<form class="navbar-form" method="post" th:action="@{'/home/edit/' + ${tsubuyaki.id}}" th:object="${tsubuyakiForm}">
+					<div class="form-group">
+						<input type="text" class="form-control" th:id="tsubuyakiInput + ${tsubuyaki.id}" size="60" th:field="*{tsubuyaki}">
+						<button class="btn-sm btn-success" type="submit">更新</button>&nbsp;
+						<button class="btn-sm btn-danger" type="button" th:id="canselBtn + ${tsubuyaki.id}" onclick="normalMode(this.id)">戻る</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-1"></div>
+</body>
+</html>

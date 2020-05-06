@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>つぶやき</title>
+	<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+	<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+	<link th:href="@{/css/login.css}" rel="stylesheet"></link>
+
+</head>
+<body>
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4">
+		<h1 id="title">ログイン</h1>
+		<p th:text="${message}" id="signupMessage"></p>
+		<form method="post" th:action="@{/login}">
+			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+		   th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger">
+			<table class="table table-bordered table-hober">
+				<tr>
+					<th class="active col-sm-3">ユーザー名</th>
+					<td>
+						<input type="text" placeholder="ユーザー名" name="username">
+					</td>
+				</tr>
+				<tr>
+					<th class="active col-sm-3">パスワード</th>
+					<td>
+						<input type="text" placeholder="パスワード" name="password">
+					</td>
+				</tr>
+			</table>
+			<div class="col-sm-6 center">
+ 				<button class="btn btn-primary" type="submit">ログイン</button>
+			</div>
+			<div class="col-sm-6 center">
+				<a th:href="@{/signup}" class="btn btn-primary">新規登録</a>
+			</div>
+		</form>
+	</div>
+	<div class="col-sm-4"></div>
+
+</body>
+</html>

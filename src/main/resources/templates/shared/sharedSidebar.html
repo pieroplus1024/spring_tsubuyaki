@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+ 	<div class="col-sm-3 sidebar" th:fragment="sidebar">
+		<div class="sidebar-nav" th:object=${user}>
+		<!-- <div class="sidebar-nav affix" th:object=${user}> -->
+			<div class="col-sm-12">
+				<h4>ユーザー名</h4>
+				<a href="#" th:text="*{userName}"></a>
+			</div>
+			<div class="col-sm-12">
+				<div class="col-sm-6">
+					<h5>フォロー</h5>
+					<a href="#" th:text="${followCount}"></a>
+				</div>
+				<div class="col-sm-6">
+					<h5>フォロワー</h5>
+					<a href="#" th:text="${followerCount}"></a>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<h4>年齢</h4>
+				<p th:text="*{age}"></p>
+			</div>
+			<div class="col-sm-12">
+				<h4>性別</h4>
+				<p th:text="*{genderName}"></p>
+			</div>
+			<div class="col-sm-12">
+				<h4>お住いの地域</h4>
+				<p th:text="*{todofukenName}"></p>
+			</div>
+		</div>
+	</div>
+</body>
